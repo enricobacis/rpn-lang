@@ -13,60 +13,50 @@ options {
 
 @lexer::members {}
 
-PROG    :   'prog' ;
-DEF     :   'def' ;
-RETURN  :   'return' ;
-NEWLINE :   '\n' ;
-QMARK   :   '?' ;
-COMMA   :   ',' ;
-LR      :   '(' ;
-RR      :   ')' ;
-LC      :   '{' ;
-RC      :   '}' ;
-EQUALS  :   '=' ;
-UMINUS  :   '_' ;
-PLUS    :   '+' ;
-MINUS   :   '-' ;
-TIMES   :   '*' ;
-DIV     :   '/' ;
-ID      :   ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '0'..'9' | '_')* ;
-NUM     :   ( ( ('1'..'9') ('0'..'9')* ) | '0') ('.' ('0'..'9')+ )? ;
-WS      :   ( ' ' | '\t' | '\r' )+ {$channel=HIDDEN;} ;
+s        :   ( def )* prog
+         ;
 
-s       :   ld
-        ;
+prog     :   PROG LC li RC
+         ;
 
-ld      :   prog
-        |   def ld
-        ;
+li       :   ( ass | disp )* ret
+         ;
 
-prog    :   PROG LC li RC
-        ;
+ass      :   ID EQ expr SC
+         ;
 
-li      :   ret
-        |   i li
-        ;
+disp     :   QMARK expr SC
+         ;
 
-i       :   ( ass | disp ) NEWLINE
-        |   NEWLINE
-        ;
+ret      :   RET expr SC
+         ;
 
-ass     :   ID EQUALS expr
-        ;
+expr     :   ( PLUS | MINUS | TIMES | DIV ) expr expr
+         |   ( UMINUS )? NUM
+         |   ID
+         ;
 
-disp    :   QMARK ID
-        ;
+def      :   DEF ID LR ( ID ( COMMA ID )* )? RR LC li RC
+         ;
 
-ret     :   RETURN expr
-        ;
 
-expr    :   ( PLUS | MINUS | TIMES | DIV ) expr expr
-        |   NUM
-        |   ID
-        ;
-
-def     :   DEF ID LR lp RR LC li RC
-        ;
-
-lp      :   ( ID ( COMMA ID )* )?
-        ;
+PROG     :   'prog' ;
+DEF      :   'def' ;
+RET      :   'return' ;
+QMARK    :   '?' ;
+COMMA    :   ',' ;
+SC       :   ';' ;
+LR       :   '(' ;
+RR       :   ')' ;
+LC       :   '{' ;
+RC       :   '}' ;
+EQ       :   '=' ;
+UMINUS   :   '_' ;
+PLUS     :   '+' ;
+MINUS    :   '-' ;
+TIMES    :   '*' ;
+DIV      :   '/' ;
+ID       :   ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '0'..'9' | '_')* ;
+NUM      :   ( ( ('1'..'9') ('0'..'9')* ) | '0') ('.' ('0'..'9')+ )? ;
+WS       :   ( ' ' | '\t' | '\r' | '\n' )+ { $channel=HIDDEN; } ;
+ERROR    :   .   ;
