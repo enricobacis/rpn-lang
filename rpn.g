@@ -2,21 +2,21 @@ grammar rpn;
 
 options {
     language = Java;
-    k = 1;
+    // k = 1;
 }
 
-@header {}
+//@header {}
 
-@lexer::header {}
+//@lexer::header {}
 
-@members {}
+//@members {}
 
-@lexer::members {}
+//@lexer::members {}
 
 s        :   ( def )* prog
          ;
 
-prog     :   PROG LC li RC
+prog     :   PROG ID LC li RC
          ;
 
 li       :   ( ass | disp )* ret
@@ -40,7 +40,7 @@ def      :   DEF ID LR ( ID ( COMMA ID )* )? RR LC li RC
          ;
 
 
-PROG     :   'prog' ;
+PROG     :   'program' ;
 DEF      :   'def' ;
 RET      :   'return' ;
 QMARK    :   '?' ;
@@ -58,5 +58,5 @@ TIMES    :   '*' ;
 DIV      :   '/' ;
 ID       :   ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '0'..'9' | '_')* ;
 NUM      :   ( ( ('1'..'9') ('0'..'9')* ) | '0') ('.' ('0'..'9')+ )? ;
-WS       :   ( ' ' | '\t' | '\r' | '\n' )+ { $channel=HIDDEN; } ;
+WS       :   [ \t\r\n]+ -> skip ;
 ERROR    :   .   ;

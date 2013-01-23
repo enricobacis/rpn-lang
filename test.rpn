@@ -12,7 +12,7 @@ def f(a, b) {
 	return d;
 }
 
-program {
+program test {
 	a = one();
 	b = + a 1;
 	c = + b one();
