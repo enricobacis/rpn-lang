@@ -16,47 +16,36 @@ options {
 s        :   ( def )* prog
          ;
 
-prog     :   PROG ID LC li RC
+prog     :   'program' ID '{' li '}'
          ;
 
 li       :   ( ass | disp )* ret
          ;
 
-ass      :   ID EQ expr SC
+ass      :   ID '=' expr ';'
          ;
 
-disp     :   QMARK expr SC
+disp     :   '?' expr ';'
          ;
 
-ret      :   RET expr SC
+ret      :   'return' expr ';'
          ;
 
-expr     :   ( PLUS | MINUS | TIMES | DIV ) expr expr
+expr     :   ( '+' | '-' | '*' | '/' ) expr expr
          |   ( UMINUS )? NUM
+         |   fn
          |   ID
          ;
 
-def      :   DEF ID LR ( ID ( COMMA ID )* )? RR LC li RC
+fn       :   ID '(' ( expr ( ',' expr )* )? ')' ;
+
+def      :   'def' ID '(' ( ID ( ',' ID )* )? ')' '{' li '}'
          ;
 
-
-PROG     :   'program' ;
-DEF      :   'def' ;
-RET      :   'return' ;
-QMARK    :   '?' ;
-COMMA    :   ',' ;
-SC       :   ';' ;
-LR       :   '(' ;
-RR       :   ')' ;
-LC       :   '{' ;
-RC       :   '}' ;
-EQ       :   '=' ;
 UMINUS   :   '_' ;
-PLUS     :   '+' ;
-MINUS    :   '-' ;
-TIMES    :   '*' ;
-DIV      :   '/' ;
-ID       :   ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '0'..'9' | '_')* ;
-NUM      :   ( ( ('1'..'9') ('0'..'9')* ) | '0') ('.' ('0'..'9')+ )? ;
-WS       :   [ \t\r\n]+ -> skip ;
+ID       :   LETTER ( LETTER | DIGIT )* ;
+NUM      :   ( [1-9] DIGIT* | '0' ) ( '.' DIGIT+ )? ;
+DIGIT    :   [0-9] ;
+LETTER   :   [a-zA-Z_] ;
+WS       :   [\t\r\n ]+ -> skip ;
 ERROR    :   .   ;
