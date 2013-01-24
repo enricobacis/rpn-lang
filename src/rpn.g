@@ -5,17 +5,22 @@ options {
     k = 1;
 }
 
-@header {}
+@header {
+package rpn.compiler;
+}
 
-@lexer::header {}
+@lexer::header {
+package rpn.compiler;
+}
 
-@members {}
+@members {
+}
 
 @lexer::members {}
 
 s        :   ( def )* prog
          ;
-
+         
 prog     :   'program' ID '{' li '}'
          ;
 

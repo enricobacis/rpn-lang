@@ -1,4 +1,6 @@
 bin/
-*.java
-*.class
+src/rpn/compiler/
+
+.DS_Store
 *.tokens
+*.class
