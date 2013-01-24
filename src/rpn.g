@@ -2,16 +2,16 @@ grammar rpn;
 
 options {
     language = Java;
-    // k = 1;
+    k = 1;
 }
 
-//@header {}
+@header {}
 
-//@lexer::header {}
+@lexer::header {}
 
-//@members {}
+@members {}
 
-//@lexer::members {}
+@lexer::members {}
 
 s        :   ( def )* prog
          ;
@@ -37,15 +37,20 @@ expr     :   ( '+' | '-' | '*' | '/' ) expr expr
          |   ID
          ;
 
-fn       :   ID '(' ( expr ( ',' expr )* )? ')' ;
+fn       :   ':' ID '(' ( expr ( ',' expr )* )? ')'  ;
 
 def      :   'def' ID '(' ( ID ( ',' ID )* )? ')' '{' li '}'
          ;
 
 UMINUS   :   '_' ;
-ID       :   LETTER ( LETTER | DIGIT )* ;
-NUM      :   ( [1-9] DIGIT* | '0' ) ( '.' DIGIT+ )? ;
-DIGIT    :   [0-9] ;
-LETTER   :   [a-zA-Z_] ;
-WS       :   [\t\r\n ]+ -> skip ;
+ID       :   ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')* ;
+
+//NUM      :   ( [1-9] DIGIT* | '0' ) ( '.' DIGIT+ )? ;
+//DIGIT    :   [0-9] ;
+//LETTER   :   [a-zA-Z_] ;
+//WS       :   [\t\r\n ]+ -> skip ;
+
+NUM      :   ( ('1'..'9') ('0'..'9')* | '0' ) ( '.' ('0'..'9')+ )? ;
+WS       :   ('\t' | '\r' | '\n' | ' ')+ {skip();} ;
+
 ERROR    :   .   ;
