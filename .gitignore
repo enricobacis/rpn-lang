@@ -1,5 +1,6 @@
 bin/
-src/rpn/compiler/
+src/rpn/compiler/core/
+test/*.txt
 
 .DS_Store
 *.tokens
