@@ -34,7 +34,7 @@ public ArrayList<TokenMessage> getErrors() {
 }
   
 public MemorySpace getVariables () {
-    return env.currentSpace;
+    return env.currentSpace();
 }
 }
 
@@ -47,8 +47,10 @@ start
 
 statement[boolean execute]
     :   assign[execute]
-    |   display[execute]
+    |   output[execute]
     |   input[execute]
+    |   ifstat[execute]
+    |   whilestat[execute]
     ;
 
 assign[boolean execute]
@@ -56,14 +58,29 @@ assign[boolean execute]
         { if (execute) sem.assign($ID, $expr.value); }
     ;
 
-display[boolean execute]
+output[boolean execute]
     :   '<<' expr[execute] ';'
-        { if (execute) sem.display($expr.text + " = " + $expr.value); }
+        { if (execute) sem.output($expr.text + " = " + $expr.value); }
     ;
 
 input[boolean execute]
     :   '>>' ID ';'
         { if (execute) sem.input($ID); }
+    ;
+
+ifstat[boolean execute]
+    :   'if' cond[false] il=slist[false] ( 'else' el=slist[false] )?
+        { if (execute) sem.ifstat($cond.start, $il.start, $el.start); }
+    ;
+
+whilestat[boolean execute]
+    :   'while' cond[false] wl=slist[false]
+        { if (execute) sem.whilestat($cond.start, $wl.start); }
+    ;
+    
+cond[boolean execute] returns [boolean satisfied]
+    :   '(' l=expr[execute] tk=CONOP r=expr[execute] ')'
+        { if (execute) $satisfied = sem.cond($l.value, $r.value, $tk); }
     ;
 
 expr[boolean execute] returns [double value]
@@ -76,12 +93,12 @@ options { k = 2; }
         { if (execute) $value = sem.getNumber($NUM); }
     |   ID
         { if (execute) $value = sem.getVar($ID); }
-    |   fn=call[execute]
-        { if (execute) $value = $fn.value; } // TODO
+    |   fun=call[execute]
+        { if (execute) $value = $fun.value; }
     ;
 
 def
-@init { List<Token> args = new ArrayList<Token>(); }  
+@init { List<Token> args = new ArrayList<Token>(); }
     :   'def' name=ID '(' ( arg=ID { args.add($arg); } ( ',' arg=ID { args.add($arg); } )* )? ')'
         deflist[false] { sem.def($name.text, args, $deflist.start); }
     ;
@@ -89,6 +106,10 @@ def
 deflist[boolean execute] returns [double value]
     :   '{' ( statement[execute] )* ret[execute] '}'
         { if (execute) $value = $ret.value; }
+    ;
+
+slist[boolean execute]
+    :   '{' ( statement[execute] )* '}'
     ;
 
 ret[boolean execute] returns [double value]
@@ -111,6 +132,10 @@ UNAOP
 
 BINOP
     :   ('+' | '-' | '*' | '/')
+    ;
+
+CONOP
+    :   ('<' | '<=' | '==' | '>=' | '>')
     ;
 
 ID       

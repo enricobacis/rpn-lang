@@ -35,7 +35,7 @@ public class MemorySpace {
     	Object obj = members.get(id);
     	if ((obj != null) && (obj instanceof Double))
     		return (Double)obj; 
-    	return null;
+    	return Double.NaN;
     }
     
     public Function getFun(String name) {

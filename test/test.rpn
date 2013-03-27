@@ -6,21 +6,33 @@ def double(num) {
 	return * num 2;
 }
 
+z = 1;
+
 def f(a, b) {
+    a = z;
 	c = * + a one() b;
 	d = - + a b / c ~ 5;
 	return d;
 }
 
 >> a;
+
 b = + a 1;
 c = + b one();
 d = double(b);
 
-<< a;
-<< b;
-<< c;
-<< d;
+if (a <= 0) {
+	<< a;
+	<< b;
+	<< c;
+	<< d;
+} else {
+	y = z;
+	while (a > 0) {
+		<< + - a y z;
+		a = - a 1;
+	}
+}
 
 a = f(b, a);
 b = + f(f(c, d), ~ / a c) a;

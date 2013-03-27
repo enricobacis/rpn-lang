@@ -1,6 +1,5 @@
 package rpn.interpreter.utils;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,19 +25,18 @@ public class Semantic {
 	}
 	
 	public void assign(Token tk, double value) {
-		env.currentSpace.putVar(tk.getText(), value);
+		env.currentSpace().putVar(tk.getText(), value);
 	}
 	
 	public double getVar(Token tk) {
-		double result = Double.NaN;
-		if (env.currentSpace.containsVar(tk.getText()))
-			return env.currentSpace.getVar(tk.getText()).floatValue();
-		else
-			env.errors.add(new TokenMessage(tk, "variable '" + tk.getText() + "' not declared"));
-		return result;
+		String id = tk.getText();
+		Double var = env.getVar(id);
+		if ( var.isNaN() )
+			env.errors.add(new TokenMessage(tk, "variable '" + id + "' not declared"));
+		return var;
 	}
 	
-	public void display(String text) {
+	public void output(String text) {
 		System.out.println(text);
 	}
 	
@@ -56,37 +54,28 @@ public class Semantic {
 		assign(tk, value);
 	}
 	
-	public double binop(double a, double b, Token tk) {
-		double result = Double.NaN;
-		
+	public double binop(double a, double b, Token tk) {		
 		switch ( tk.getText() ) {
 		case "+":
-			result = a + b;
-			break;
+			return a + b;
 		case "-":
-			result = a - b;
-			break;
+			return a - b;
 		case "*":
-			result = a * b;
-			break;
+			return a * b;
 		case "/":
 			if (b != 0)
-				result = a / b;
+				return a / b;
 			else
 				env.errors.add(new TokenMessage(tk, "division by zero"));
 			break;
 		}
-		
-		return result;
+		return Double.NaN;
 	}
 	
 	public double unaop(double n, Token tk) {
-		double result = Double.NaN;
-		
 		switch ( tk.getText() ) {
 		case "~":
-			result = -(n);
-			break;
+			return -(n);
 		case "!":
 			if ( n < 0 ) {
 				env.warnings.add(new TokenMessage(tk, n + " -> 0 to use factorial"));
@@ -98,11 +87,9 @@ public class Semantic {
 				env.warnings.add(new TokenMessage(tk, n + " -> " + i + " to use factorial"));
 			}
 			
-			result = factorial(i);
-			break;
+			return factorial(i);
 		}
-		
-		return result;
+		return Double.NaN;
 	}
 	
 	private int factorial(int i) {
@@ -111,43 +98,95 @@ public class Semantic {
 		return i * factorial(i - 1);
 	}
 	
+	public void ifstat(Token cond, Token iflist, Token elselist) {
+		int oldPosition = parser.input.index();
+    	parser.input.seek(cond.getTokenIndex());
+    	env.stack.push(new MemorySpace("if " + cond.getText()));
+    	
+		try {
+			if ( parser.cond(true).satisfied ) {
+				parser.input.seek(iflist.getTokenIndex());
+				parser.slist(true);
+			} else if ( elselist != null ) {
+				parser.input.seek(elselist.getTokenIndex());
+				parser.slist(true);
+			}
+		} catch (RecognitionException re) {
+			env.errors.add(new TokenMessage(cond, "can't execute if statement"));
+		} finally {
+			parser.input.seek(oldPosition);
+		}
+		
+		env.stack.pop();
+	}
+	
+	public void whilestat(Token cond, Token whilelist) {
+		int oldPosition = parser.input.index();
+    	parser.input.seek(cond.getTokenIndex());
+    	env.stack.push(new MemorySpace("while " + cond.getText()));
+    	
+    	try {
+    		while ( parser.cond(true).satisfied ) {
+    			parser.input.seek(whilelist.getTokenIndex());
+				parser.slist(true);
+				parser.input.seek(cond.getTokenIndex());
+    		}
+    	} catch (RecognitionException re) {
+			env.errors.add(new TokenMessage(cond, "can't execute while loop"));
+		} finally {
+			parser.input.seek(oldPosition);
+		}
+		
+		env.stack.pop();
+	}
+	
+	public boolean cond(double left, double right, Token condop) {
+		switch(condop.getText()) {
+		case "<":
+			return left < right;
+		case "<=":
+			return left <= right;
+		case "==":
+			return left == right;
+		case ">=":
+			return left >= right;
+		case ">":
+			return left > right;
+		}
+		return false;
+	}
+	
     public void def(String name, List <Token> formalArgs, Token codeStart) {
         Function fn = new Function(name, formalArgs, codeStart);
-        env.currentSpace.putFun(fn);
+        env.currentSpace().putFun(fn);
     }
 
     public double call(Token tk, List<Double> args) {
     	String name = tk.getText();
-    	Function fn = env.currentSpace.getFun(name);
+    	
+    	Function fun = env.getFun(name);
+		if ( fun == null ) {
+			env.errors.add(new TokenMessage(tk, "no function '" + name + "'"));
+			return Double.NaN;
+		}
 
-    	if ( fn == null ) {
-    		fn = env.globals.getFun(name);
-    		if (fn == null) {
-    			env.errors.add(new TokenMessage(tk, "no function '" + name + "'"));
-    			return Double.NaN;
-    		}
-    	}
+    	MemorySpace fnSpace = new MemorySpace(fun);
 
-    	MemorySpace fnSpace = new MemorySpace(fn);
-    	MemorySpace oldSpace = env.currentSpace;
-    	env.currentSpace = fnSpace;
-
-    	if ( (fn.formalArgs == null && args.size() > 0) ||
-    			(fn.formalArgs != null && args.size() != fn.formalArgs.size()) ) {
-    		env.errors.add(new TokenMessage(tk, "function '" + fn.name + "' argument list mismatch"));
+    	if ( (fun.formalArgs == null && args.size() > 0) ||
+    			(fun.formalArgs != null && args.size() != fun.formalArgs.size()) ) {
+    		env.errors.add(new TokenMessage(tk, "function '" + fun.name + "' argument list mismatch"));
     		return Double.NaN;
     	}
-
-    	Iterator<Double> argsiter = args.iterator();
-    	for ( Token formal : fn.formalArgs ) {
-    		fnSpace.putVar(formal.getText(), argsiter.next());
+    	
+    	for ( int i = 0; i < args.size(); ++i ) {
+    		fnSpace.putVar(fun.formalArgs.get(i).getText(), args.get(i));
     	}
     	
     	env.stack.push(fnSpace);
     	
     	Double result = Double.NaN;
     	int oldPosition = parser.input.index();
-    	parser.input.seek(fn.codeStart.getTokenIndex());
+    	parser.input.seek(fun.codeStart.getTokenIndex());
     	
 		try {
 			result = parser.deflist(true).value;
@@ -158,8 +197,6 @@ public class Semantic {
 		}
 		
     	env.stack.pop();
-    	env.currentSpace = oldSpace;
-    	
     	return result;
     }
     

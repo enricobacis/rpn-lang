@@ -59,7 +59,7 @@ public class RpnUser  {
 		
 		for ( String key : parser.getVariables().keySet() ) {
 			Double value = parser.getVariables().getVar(key);
-			fout.append(key + " = " + (value != null ? value : "function") + "\n");
+			fout.append(key + " = " + (value.isNaN() ? "function" : value) + "\n");
 		}
 		
 		if ( parser.getWarnings().size() > 0 ) {
