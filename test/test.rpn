@@ -7,26 +7,25 @@ def double(num) {
 }
 
 def f(a, b) {
-	c = * + a 2 b;
-	d = * + a b - c _ 5;
+	c = * + a one() b;
+	d = - + a b / c ~ 5;
 	return d;
 }
 
-program test {
-	a = one();
-	b = + a 1;
-	c = + b one();
-	d = double(b);
+>> a;
+b = + a 1;
+c = + b one();
+d = double(b);
 
-	?a;
-	?b;
-	?c;
-	?d;
+<< a;
+<< b;
+<< c;
+<< d;
 
-	a = f(b, a);
-	?a;
-	b = + f(f(a, b), f(c, d)) a;
-	?b;
+a = f(b, a);
+b = + f(f(c, d), ~ / a c) a;
 
-	return 0;
-}
+<< a;
+<< b;
+
+<< ! 6;
