@@ -1,5 +1,8 @@
 def one() {
-	return 1;
+	def half(num) {
+		return / num 2;
+	}
+	return * half(1) 2;
 }
 
 def double(num) {
@@ -21,14 +24,14 @@ b = + a 1;
 c = + b one();
 d = double(b);
 
-if (a <= 0) {
+if (<= a 0) {
 	<< a;
 	<< b;
 	<< c;
 	<< d;
 } else {
 	y = z;
-	while (a > 0) {
+	while (> a 0) {
 		<< + - a y z;
 		a = - a 1;
 	}

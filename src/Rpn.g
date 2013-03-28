@@ -42,7 +42,7 @@ public MemorySpace getVariables () {
 
 start
 @init { init (); }
-    :   ( def | statement[true] )* EOF
+    :   ( statement[true] )* EOF
     ;
 
 statement[boolean execute]
@@ -51,6 +51,7 @@ statement[boolean execute]
     |   input[execute]
     |   ifstat[execute]
     |   whilestat[execute]
+    |   def[execute]
     ;
 
 assign[boolean execute]
@@ -79,28 +80,14 @@ whilestat[boolean execute]
     ;
     
 cond[boolean execute] returns [boolean satisfied]
-    :   '(' l=expr[execute] tk=CONOP r=expr[execute] ')'
+    :   '(' tk=CONOP l=expr[execute] r=expr[execute] ')'
         { if (execute) $satisfied = sem.cond($l.value, $r.value, $tk); }
     ;
 
-expr[boolean execute] returns [double value]
-options { k = 2; }
-    :   tk=BINOP a=expr[execute] b=expr[execute]
-        { if (execute) $value = sem.binop($a.value, $b.value, $tk); }
-    |   tk=UNAOP u=expr[execute]
-        { if (execute) $value = sem.unaop($u.value, $tk); }
-    |   NUM
-        { if (execute) $value = sem.getNumber($NUM); }
-    |   ID
-        { if (execute) $value = sem.getVar($ID); }
-    |   fun=call[execute]
-        { if (execute) $value = $fun.value; }
-    ;
-
-def
+def[boolean execute]
 @init { List<Token> args = new ArrayList<Token>(); }
     :   'def' name=ID '(' ( arg=ID { args.add($arg); } ( ',' arg=ID { args.add($arg); } )* )? ')'
-        deflist[false] { sem.def($name.text, args, $deflist.start); }
+        deflist[false] { if (execute) sem.def($name.text, args, $deflist.start); }
     ;
     
 deflist[boolean execute] returns [double value]
@@ -115,6 +102,20 @@ slist[boolean execute]
 ret[boolean execute] returns [double value]
     :   'return' expr[execute] ';'
         { if (execute) $value = $expr.value; }
+    ;
+
+expr[boolean execute] returns [double value]
+options { k = 2; }
+    :   tk=BINOP a=expr[execute] b=expr[execute]
+        { if (execute) $value = sem.binop($a.value, $b.value, $tk); }
+    |   tk=UNAOP u=expr[execute]
+        { if (execute) $value = sem.unaop($u.value, $tk); }
+    |   NUM
+        { if (execute) $value = sem.getNumber($NUM); }
+    |   ID
+        { if (execute) $value = sem.getVar($ID); }
+    |   fun=call[execute]
+        { if (execute) $value = $fun.value; }
     ;
 
 call[boolean execute] returns [double value]

@@ -21,12 +21,11 @@ public class RpnUser  {
 	public static void main(String[] args) {
 		
 		if ( args.length < 1 ) {
-			System.err.println("File di input mancante");
+			System.err.println("[File di input mancante]");
 			System.exit(1);
 		}
 		
-		System.out.println("Parsing con rpn-lang");
-		System.out.println("--------------------\n");
+		System.out.println("[Parsing con rpn-lang]\n");
 		String infile = args[0];
 
 		try {
@@ -38,7 +37,7 @@ public class RpnUser  {
 			saveOutput(infile + ".out");
 
 		} catch ( Exception e ) {
-			System.err.println("Parsing con ANTLR abortito");
+			System.err.println("[Parsing con ANTLR abortito]");
 		}
 		
 		int errors = parser.getErrors().size();
@@ -55,7 +54,7 @@ public class RpnUser  {
 	static void saveOutput(String outfile) throws IOException {
 		FileWriter fout = new FileWriter (outfile);
 		
-		fout.append("Lista delle Variabili\n---------------------\n");
+		fout.append("[Variabili nello Stack]\n");
 		
 		for ( String key : parser.getVariables().keySet() ) {
 			Double value = parser.getVariables().getVar(key);
@@ -63,14 +62,14 @@ public class RpnUser  {
 		}
 		
 		if ( parser.getWarnings().size() > 0 ) {
-			fout.append("\nLista dei Warning\n-------------------\n");
+			fout.append("\n[Lista dei Warning]\n");
 			for (TokenMessage warn : parser.getWarnings()) {
 				fout.append(warn + "\n");
 			}	
 		}
 		
 		if ( parser.getErrors().size() > 0 ) {
-			fout.append("\nLista degli Errori\n--------------------\n");
+			fout.append("\n[Lista degli Errori]\n");
 			for (TokenMessage err : parser.getErrors()) {
 				fout.append(err + "\n");  	
 			}

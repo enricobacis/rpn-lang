@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g 2013-03-27 15:03:39
+// $ANTLR 3.5 /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g 2013-03-27 23:50:21
 
 package rpn.interpreter.core;
 
@@ -341,7 +341,7 @@ public class RpnLexer extends Lexer {
 		try {
 			int _type = UNAOP;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:130:5: ( ( '~' | '!' ) )
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:131:5: ( ( '~' | '!' ) )
 			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:
 			{
 			if ( input.LA(1)=='!'||input.LA(1)=='~' ) {
@@ -368,7 +368,7 @@ public class RpnLexer extends Lexer {
 		try {
 			int _type = BINOP;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:134:5: ( ( '+' | '-' | '*' | '/' ) )
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:135:5: ( ( '+' | '-' | '*' | '/' ) )
 			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:
 			{
 			if ( (input.LA(1) >= '*' && input.LA(1) <= '+')||input.LA(1)=='-'||input.LA(1)=='/' ) {
@@ -395,10 +395,10 @@ public class RpnLexer extends Lexer {
 		try {
 			int _type = CONOP;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:138:5: ( ( '<' | '<=' | '==' | '>=' | '>' ) )
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:138:9: ( '<' | '<=' | '==' | '>=' | '>' )
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:139:5: ( ( '<' | '<=' | '==' | '>=' | '>' ) )
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:139:9: ( '<' | '<=' | '==' | '>=' | '>' )
 			{
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:138:9: ( '<' | '<=' | '==' | '>=' | '>' )
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:139:9: ( '<' | '<=' | '==' | '>=' | '>' )
 			int alt1=5;
 			switch ( input.LA(1) ) {
 			case '<':
@@ -439,34 +439,34 @@ public class RpnLexer extends Lexer {
 			}
 			switch (alt1) {
 				case 1 :
-					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:138:10: '<'
+					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:139:10: '<'
 					{
 					match('<'); 
 					}
 					break;
 				case 2 :
-					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:138:16: '<='
+					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:139:16: '<='
 					{
 					match("<="); 
 
 					}
 					break;
 				case 3 :
-					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:138:23: '=='
+					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:139:23: '=='
 					{
 					match("=="); 
 
 					}
 					break;
 				case 4 :
-					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:138:30: '>='
+					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:139:30: '>='
 					{
 					match(">="); 
 
 					}
 					break;
 				case 5 :
-					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:138:37: '>'
+					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:139:37: '>'
 					{
 					match('>'); 
 					}
@@ -490,8 +490,8 @@ public class RpnLexer extends Lexer {
 		try {
 			int _type = ID;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:142:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:142:9: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:143:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:143:9: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 				input.consume();
@@ -501,7 +501,7 @@ public class RpnLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:142:37: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:143:37: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
 			loop2:
 			while (true) {
 				int alt2=2;
@@ -546,10 +546,10 @@ public class RpnLexer extends Lexer {
 		try {
 			int _type = NUM;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:146:5: ( ( ( '1' .. '9' ) ( '0' .. '9' )* | '0' ) ( '.' ( '0' .. '9' )+ )? )
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:146:9: ( ( '1' .. '9' ) ( '0' .. '9' )* | '0' ) ( '.' ( '0' .. '9' )+ )?
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:147:5: ( ( ( '1' .. '9' ) ( '0' .. '9' )* | '0' ) ( '.' ( '0' .. '9' )+ )? )
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:147:9: ( ( '1' .. '9' ) ( '0' .. '9' )* | '0' ) ( '.' ( '0' .. '9' )+ )?
 			{
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:146:9: ( ( '1' .. '9' ) ( '0' .. '9' )* | '0' )
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:147:9: ( ( '1' .. '9' ) ( '0' .. '9' )* | '0' )
 			int alt4=2;
 			int LA4_0 = input.LA(1);
 			if ( ((LA4_0 >= '1' && LA4_0 <= '9')) ) {
@@ -567,7 +567,7 @@ public class RpnLexer extends Lexer {
 
 			switch (alt4) {
 				case 1 :
-					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:146:11: ( '1' .. '9' ) ( '0' .. '9' )*
+					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:147:11: ( '1' .. '9' ) ( '0' .. '9' )*
 					{
 					if ( (input.LA(1) >= '1' && input.LA(1) <= '9') ) {
 						input.consume();
@@ -577,7 +577,7 @@ public class RpnLexer extends Lexer {
 						recover(mse);
 						throw mse;
 					}
-					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:146:22: ( '0' .. '9' )*
+					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:147:22: ( '0' .. '9' )*
 					loop3:
 					while (true) {
 						int alt3=2;
@@ -609,7 +609,7 @@ public class RpnLexer extends Lexer {
 					}
 					break;
 				case 2 :
-					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:146:36: '0'
+					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:147:36: '0'
 					{
 					match('0'); 
 					}
@@ -617,7 +617,7 @@ public class RpnLexer extends Lexer {
 
 			}
 
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:146:42: ( '.' ( '0' .. '9' )+ )?
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:147:42: ( '.' ( '0' .. '9' )+ )?
 			int alt6=2;
 			int LA6_0 = input.LA(1);
 			if ( (LA6_0=='.') ) {
@@ -625,10 +625,10 @@ public class RpnLexer extends Lexer {
 			}
 			switch (alt6) {
 				case 1 :
-					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:146:44: '.' ( '0' .. '9' )+
+					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:147:44: '.' ( '0' .. '9' )+
 					{
 					match('.'); 
-					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:146:48: ( '0' .. '9' )+
+					// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:147:48: ( '0' .. '9' )+
 					int cnt5=0;
 					loop5:
 					while (true) {
@@ -682,10 +682,10 @@ public class RpnLexer extends Lexer {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:150:5: ( ( '\\t' | '\\r' | '\\n' | ' ' )+ )
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:150:9: ( '\\t' | '\\r' | '\\n' | ' ' )+
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:151:5: ( ( '\\t' | '\\r' | '\\n' | ' ' )+ )
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:151:9: ( '\\t' | '\\r' | '\\n' | ' ' )+
 			{
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:150:9: ( '\\t' | '\\r' | '\\n' | ' ' )+
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:151:9: ( '\\t' | '\\r' | '\\n' | ' ' )+
 			int cnt7=0;
 			loop7:
 			while (true) {
@@ -735,11 +735,11 @@ public class RpnLexer extends Lexer {
 		try {
 			int _type = SL_COMMENT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:154:5: ( '#' (~ ( '\\r' | '\\n' ) )* )
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:154:9: '#' (~ ( '\\r' | '\\n' ) )*
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:155:5: ( '#' (~ ( '\\r' | '\\n' ) )* )
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:155:9: '#' (~ ( '\\r' | '\\n' ) )*
 			{
 			match('#'); 
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:154:13: (~ ( '\\r' | '\\n' ) )*
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:155:13: (~ ( '\\r' | '\\n' ) )*
 			loop8:
 			while (true) {
 				int alt8=2;
@@ -785,8 +785,8 @@ public class RpnLexer extends Lexer {
 		try {
 			int _type = SCAN_ERROR;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:158:5: ( . )
-			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:158:9: .
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:159:5: ( . )
+			// /home/enrico/Dropbox/enrico/code/uni/lang/rpn-lang/src/Rpn.g:159:9: .
 			{
 			matchAny(); 
 			}

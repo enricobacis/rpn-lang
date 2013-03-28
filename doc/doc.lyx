@@ -1,0 +1,1703 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\usepackage{minted}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language italian
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 11
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 3cm
+\topmargin 3cm
+\rightmargin 3cm
+\bottommargin 3cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace 5cm*
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\series bold
+\size giant
+rpn-lang
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\size large
+- 
+\shape italic
+Enrico Bacis, Daniele E.
+ Ciriello
+\shape default
+ -
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace vfill
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Relazione del progetto rpn-lang di Enrico Bacis e Daniele E.
+ Ciriello del corso di Linguaggi e Compilatori tenuto dal Professor Giuseppe
+ Psaila presso l'Università degli Studi di Bergamo nell'anno accademico
+ 2012/2013.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align right
+Versione del Documento: 1.0 - 20130320
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduzione
+\end_layout
+
+\begin_layout Standard
+L'obiettivo del progetto è la creazione di un semplice linguaggio di programmazi
+one, ci si è però concentrati non tanto sulla specificità del linguaggio
+ ma sulla sua generalizzazione e quindi sull'usabilità di esso.
+ Infatti esistono due diversi tipi di linguaggi che si possono progettare:
+\end_layout
+
+\begin_layout Enumerate
+Linguaggio 
+\shape italic
+single-purpose
+\shape default
+ che risolve un problema specifico
+\end_layout
+
+\begin_layout Enumerate
+Linguaggio 
+\shape italic
+general-purpose
+\shape default
+ che si applica a diverse problematiche
+\end_layout
+
+\begin_layout Standard
+Ci si è dunque concentrati sulla seconda alternativa focalizzando l'attenzione
+ sulla creazione di un linguaggio Turing-completo
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Un linguaggio si dice 
+\shape italic
+Turing-completo
+\shape default
+ quando permette la descrizione di qualsiasi algoritmo.
+ Un linguaggio imperativo è Turing-completo se offre un costrutto condizionale
+ (come 
+\shape italic
+if
+\shape default
+ e la possibilità di cambiare locazioni di memoria (ad esempio permettendo
+ il salvataggio di un numero arbitrario di variabili).
+\end_layout
+
+\end_inset
+
+.
+ In questo modo è possibile esprimere qualsiasi tipo di problema e sviluppare
+ così un linguaggio che più si avvicina al tipo di linguaggi di programmazione
+ a cui si è abituati piuttosto che a un problema che risulta essere più
+ algoritmico e relativo ad una tematica specifica (rischiando così di spendere
+ più tempo nel risolvere i problemi della tematica piuttosto che concentrarsi
+ sul linguaggio).
+\end_layout
+
+\begin_layout Section
+Il linguaggio
+\end_layout
+
+\begin_layout Standard
+Seguendo le aspettative, si è realizzato un linguaggio con:
+\end_layout
+
+\begin_layout Itemize
+Valutazione di espressioni in notazione prefissa, da cui il nome rpn-lang
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Reverse Polish Notation, Notazione Polacca Inversa
+\end_layout
+
+\end_inset
+
+ con l'utilizzo di operatori unari e binari.
+ 
+\end_layout
+
+\begin_layout Itemize
+Gestione degli errori e dei warning semantici.
+ 
+\end_layout
+
+\begin_layout Itemize
+Assegnamento di valori di tipo 
+\series bold
+double
+\series default
+ a variabili senza la loro preventiva dichiarazione.
+ 
+\end_layout
+
+\begin_layout Itemize
+Definizione di funzioni a qualsiasi livello dello stack (
+\shape italic
+higher-order functions
+\shape default
+).
+ 
+\end_layout
+
+\begin_layout Itemize
+Gestione dei 
+\shape italic
+record di attivazione
+\shape default
+ e ricerca delle variabili e delle funzioni in tutto lo stack delle chiamate.
+ 
+\end_layout
+
+\begin_layout Itemize
+Definizione dei costrutti 
+\series bold
+if
+\series default
+ e 
+\series bold
+while
+\series default
+ e conseguente valutazione delle espressioni booleane.
+ 
+\end_layout
+
+\begin_layout Itemize
+Gestione dell'input e dell'output delle variabili.
+ 
+\end_layout
+
+\begin_layout Subsection
+Grammatica
+\end_layout
+
+\begin_layout Standard
+La grammatica è stata prima scritta in notazione BNF seguendo i precetti
+ per la costruzione di grammatiche formali studiati durante il corso, e
+ successivamente, utilizzando il tool ANTLR, trasformata in EBNF per poter
+ meglio rappresentare quali siano gli aspetti strutturali del linguaggio.
+ In questo documento verrà presentata solamente la grammatica EBNF.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}{antlr-java}
+\end_layout
+
+\begin_layout Plain Layout
+
+grammar Rpn;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+options {
+\end_layout
+
+\begin_layout Plain Layout
+
+    language = Java;
+\end_layout
+
+\begin_layout Plain Layout
+
+    k = 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+@header {...}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+@lexer::header {...}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+@members {
+\end_layout
+
+\begin_layout Plain Layout
+
+private Environment env;
+\end_layout
+
+\begin_layout Plain Layout
+
+private Semantic sem;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+void init () {
+\end_layout
+
+\begin_layout Plain Layout
+
+    env = new Environment();
+\end_layout
+
+\begin_layout Plain Layout
+
+    sem = new Semantic(env, this);
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+@lexer::members {}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+start
+\end_layout
+
+\begin_layout Plain Layout
+
+@init { init (); }
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   ( statement[true] )* EOF
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+statement[boolean execute]
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   assign[execute]
+\end_layout
+
+\begin_layout Plain Layout
+
+    |   output[execute]
+\end_layout
+
+\begin_layout Plain Layout
+
+    |   input[execute]
+\end_layout
+
+\begin_layout Plain Layout
+
+    |   ifstat[execute]
+\end_layout
+
+\begin_layout Plain Layout
+
+    |   whilestat[execute]
+\end_layout
+
+\begin_layout Plain Layout
+
+    |   def[execute]
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+assign[boolean execute]
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   ID '=' expr[execute] ';'
+\end_layout
+
+\begin_layout Plain Layout
+
+        { if (execute) sem.assign($ID, $expr.value); }
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+output[boolean execute]
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   '<<' expr[execute] ';'
+\end_layout
+
+\begin_layout Plain Layout
+
+        { if (execute) sem.output($expr.text + " = " + $expr.value); }
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+input[boolean execute]
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   '>>' ID ';'
+\end_layout
+
+\begin_layout Plain Layout
+
+        { if (execute) sem.input($ID); }
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ifstat[boolean execute]
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   'if' cond[false] il=slist[false] ( 'else' el=slist[false] )?
+\end_layout
+
+\begin_layout Plain Layout
+
+        { if (execute) sem.ifstat($cond.start, $il.start, $el.start); }
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+whilestat[boolean execute]
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   'while' cond[false] wl=slist[false]
+\end_layout
+
+\begin_layout Plain Layout
+
+        { if (execute) sem.whilestat($cond.start, $wl.start); }
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+cond[boolean execute] returns [boolean satisfied]
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   '(' tk=CONOP l=expr[execute] r=expr[execute] ')'
+\end_layout
+
+\begin_layout Plain Layout
+
+        { if (execute) $satisfied = sem.cond($l.value, $r.value, $tk); }
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def[boolean execute]
+\end_layout
+
+\begin_layout Plain Layout
+
+@init { List<Token> args = new ArrayList<Token>(); }
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   'def' name=ID '(' ( arg=ID { args.add($arg); }
+\end_layout
+
+\begin_layout Plain Layout
+
+        ( ',' arg=ID { args.add($arg); } )* )? ')' deflist[false]
+\end_layout
+
+\begin_layout Plain Layout
+
+        { if (execute) sem.def($name.text, args, $deflist.start); }
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+deflist[boolean execute] returns [double value]
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   '{' ( statement[execute] )* ret[execute] '}'
+\end_layout
+
+\begin_layout Plain Layout
+
+        { if (execute) $value = $ret.value; }
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+slist[boolean execute]
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   '{' ( statement[execute] )* '}'
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ret[boolean execute] returns [double value]
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   'return' expr[execute] ';'
+\end_layout
+
+\begin_layout Plain Layout
+
+        { if (execute) $value = $expr.value; }
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+expr[boolean execute] returns [double value]
+\end_layout
+
+\begin_layout Plain Layout
+
+options { k = 2; }
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   tk=BINOP a=expr[execute] b=expr[execute]
+\end_layout
+
+\begin_layout Plain Layout
+
+        { if (execute) $value = sem.binop($a.value, $b.value, $tk); }
+\end_layout
+
+\begin_layout Plain Layout
+
+    |   tk=UNAOP u=expr[execute]
+\end_layout
+
+\begin_layout Plain Layout
+
+        { if (execute) $value = sem.unaop($u.value, $tk); }
+\end_layout
+
+\begin_layout Plain Layout
+
+    |   NUM
+\end_layout
+
+\begin_layout Plain Layout
+
+        { if (execute) $value = sem.getNumber($NUM); }
+\end_layout
+
+\begin_layout Plain Layout
+
+    |   ID
+\end_layout
+
+\begin_layout Plain Layout
+
+        { if (execute) $value = sem.getVar($ID); }
+\end_layout
+
+\begin_layout Plain Layout
+
+    |   fun=call[execute]
+\end_layout
+
+\begin_layout Plain Layout
+
+        { if (execute) $value = $fun.value; }
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+call[boolean execute] returns [double value]
+\end_layout
+
+\begin_layout Plain Layout
+
+@init { List<Double> args = new ArrayList<Double>(); }
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   name=ID '('
+\end_layout
+
+\begin_layout Plain Layout
+
+        ( arg=expr[execute] { args.add($arg.value); }
+\end_layout
+
+\begin_layout Plain Layout
+
+          ( ',' arg=expr[execute] { args.add($arg.value); } )*
+\end_layout
+
+\begin_layout Plain Layout
+
+        )? ')'
+\end_layout
+
+\begin_layout Plain Layout
+
+        { if (execute) $value = sem.call($name, args); }
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+UNAOP
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   ('~' | '!')
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+BINOP
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   ('+' | '-' | '*' | '/')
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+CONOP
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   ('<' | '<=' | '==' | '>=' | '>')
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ID       
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+NUM      
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   ( ('1'..'9') ('0'..'9')* | '0' ) ( '.' ('0'..'9')+ )?
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+         
+\end_layout
+
+\begin_layout Plain Layout
+
+WS       
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   ('
+\backslash
+t' | '
+\backslash
+r' | '
+\backslash
+n' | ' ')+ { $channel=HIDDEN; }
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+         
+\end_layout
+
+\begin_layout Plain Layout
+
+SL_COMMENT
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   '#' ~('
+\backslash
+r'|'
+\backslash
+n')* { $channel=HIDDEN; }
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+SCAN_ERROR
+\end_layout
+
+\begin_layout Plain Layout
+
+    :   .
+\end_layout
+
+\begin_layout Plain Layout
+
+    ;
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Proprietà della Grammatica
+\end_layout
+
+\begin_layout Standard
+La grammatica è non ambigua, e può essere processata con un parser di tipo
+ 
+\series bold
+LL(1)
+\series default
+ con l'unica eccezione della regola 
+\shape italic
+expr
+\shape default
+ che ha bisogno di una prospezione di 2 tokens.
+ Questo è un problema di tutte le grammatica che permette di invocare delle
+ funzioni, infatti non si può distinguere una variabile dall'invocazione
+ di una funzione se sia le variabili che i nomi delle funzioni appartengono
+ allo stesso insieme di identificatori.
+ Le soluzioni analizzate sono tre:
+\end_layout
+
+\begin_layout Enumerate
+Utilizzo di un token non presente nella grammatica, prima della chiamata
+ della funzione (ad esempio chiamare le funzioni con 
+\shape italic
+:f()
+\shape default
+ invece che con 
+\shape italic
+f()
+\shape default
+.
+\end_layout
+
+\begin_layout Enumerate
+Separare lo spazio di identificatori delle variabili da quello delle funzioni
+ (ad esempio riservare gli identificatori che iniziano con 
+\shape italic
+f_
+\shape default
+ per le funzioni.
+\end_layout
+
+\begin_layout Enumerate
+Aumentare a due i token di prospezione per la regola 
+\shape italic
+expr
+\shape default
+ in modo da poter distinguere i nomi delle variabili dalle chiamate di funzioni,
+ che sono seguite da 
+\shape italic
+'(
+\shape default
+'.
+\end_layout
+
+\begin_layout Standard
+Si è optato per la terza alternativa poiché quella più naturale e non computazio
+nalmente complessa per il parser, a patto di mantenere la prospezione di
+ un solo token altrove.
+\end_layout
+
+\begin_layout Subsection
+Attributi
+\end_layout
+
+\begin_layout Standard
+È stata utilizzata una grammatica ad attributi per risolvere l'albero semantico
+ generato dal parser.
+ In particolare si sono utilizzati i seguenti attributi principali:
+\end_layout
+
+\begin_layout Description
+
+\series bold
+value
+\series default
+ Attributo 
+\shape italic
+sintetizzato
+\shape default
+ che contiene il valore dell'espressione calcolata fino a quel momento.
+ Risale l'albero fino alla regola 
+\shape italic
+expr
+\shape default
+.
+\end_layout
+
+\begin_layout Description
+
+\series bold
+execute
+\series default
+ Attributo 
+\shape italic
+ereditato
+\shape default
+ che informa la semantica se si rende necessario eseguire l'azione legata
+ alla regola.
+ Infatti quando ad esempio vengono definite le funzioni, oppure durante
+ il parsing dei blocchi 
+\shape italic
+if-else
+\shape default
+ e 
+\shape italic
+while
+\shape default
+, non bisogna eseguire le azioni ma fare il parsing di tutto il blocco e
+ poi successivamente eseguirlo in base alla condizione (nel caso di if-else
+ e while) oppure al momento dell'invocazione per il caso delle funzioni.
+\end_layout
+
+\begin_layout Standard
+La grammatica così partizionata è adatta a un valutatore 
+\series bold
+one-sweep
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Costrutti
+\end_layout
+
+\begin_layout Standard
+Vengono di seguito esposti i principali costrutti del linguaggio Rpn-Lang.
+\end_layout
+
+\begin_layout Subsection
+Espressioni
+\end_layout
+
+\begin_layout Standard
+Un'espressione 
+\shape italic
+expr
+\shape default
+ rappresenta una qualsiasi espressione aritmetica in notazione polacca antefissa
+, ossia nel formato 
+\shape italic
+operatore operando operando"
+\shape default
+, se ad esempio si vuole rappresentare l'espressione 
+\shape italic
+
+\begin_inset Formula $a+b$
+\end_inset
+
+
+\shape default
+ in RPN, tale espressione diventa 
+\begin_inset Formula $+a\, b$
+\end_inset
+
+.
+ L'inserimento di un'espressione in una notazione diversa dalla notazione
+ polacca inversa all'interno di codice Rpn-Lang causa la segnalazione di
+ un'errore sintattico.
+\end_layout
+
+\begin_layout Standard
+Sono stati definiti 4 operatori binari e 2 operatori unari:
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+\begin_inset Formula $+\, a\, b$
+\end_inset
+
+ somma 
+\begin_inset Formula $(a+b)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+\begin_inset Formula $-\, a\, b$
+\end_inset
+
+ differenza 
+\begin_inset Formula $(a-b)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+\begin_inset Formula $*\, a\, b$
+\end_inset
+
+ moltiplicazione 
+\begin_inset Formula $(a*b)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+\begin_inset Formula $/\, a\, b$
+\end_inset
+
+ divisione 
+\begin_inset Formula $(a/b)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+\begin_inset Formula $\sim\, a$
+\end_inset
+
+ inversione di segno 
+\begin_inset Formula $(-a)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+\begin_inset Formula $!\, a$
+\end_inset
+
+ fattoriale 
+\begin_inset Formula $(a!)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Gestione degli errori
+\end_layout
+
+\begin_layout Itemize
+La divisione per 
+\begin_inset Formula $0$
+\end_inset
+
+ genera un errore semantico.
+ L'applicazione del fattoriale su un numero non intero oppure su un numero
+ negativo genera un warning (nel primo caso il numero viene arrotondato
+ all'intero inferiore, mentre nel secondo caso il numero negativo viene
+ portato a 
+\begin_inset Formula $0$
+\end_inset
+
+ per poter applicare il fattoriale).
+\end_layout
+
+\begin_layout Itemize
+Quando viene invocata una funzione oppure si cerca di accedere al valore
+ di una variabile che non è stata definita, viene generato un errore semantico,
+ tuttavia il compilatore prosegue sempre, infatti la comodità dell'utilizzare
+ il tipo di dato Double di Java è che può assumere il valore 
+\shape italic
+Not a Number
+\shape default
+ che è perfetto per i nostri scopi.
+\end_layout
+
+\begin_layout Subsection
+Assegnamenti
+\end_layout
+
+\begin_layout Standard
+Gli assegnamenti sono rappresentati dalla grammatica come una sequenza data
+ da 
+\shape italic
+
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset Formula $var=expr$
+\end_inset
+
+
+\shape default
+
+\begin_inset Quotes erd
+\end_inset
+
+, in tal caso il compilatore assegna il risultato dell'espressione 
+\shape italic
+expr
+\shape default
+ alla variabile 
+\shape italic
+var
+\shape default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Come detto in precedenza, Rpn-Lang utilizza uno stack di record di attivazione
+ per salvare le variabili e le funzioni definite all'interno di funzioni
+ o di blocchi 
+\shape italic
+if-else
+\shape default
+ e 
+\shape italic
+while
+\shape default
+.
+ Ogni blocco può accedere anche a tutte le variabili e tutte le funzioni
+ definite negli altri blocchi dello stack, a patto che gli identificativi
+ non siano stati oscurati con la definizione di nuove variabili o funzioni
+ aventi lo stesso nome all'interno del blocco.
+ Le variabili e le funzioni definite all'interno dei blocchi esistono sono
+ all'interno del blocco e vengono deallocate successivamente.
+\end_layout
+
+\begin_layout Subsection
+Funzioni
+\end_layout
+
+\begin_layout Standard
+È possibile definire funzioni tramite la sintassi 
+\shape italic
+
+\begin_inset Formula 
+\[
+def\, id\_funzione\,(\, lista\_parametri\,)\,\{\, lista\_istruzioni\,\}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Per poter invece invocare la funzione si usa invece la sintassi
+\shape italic
+ 
+\begin_inset Formula 
+\[
+id\_funzione\,(\, lista\_parametri\,)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Non avendo una struttura intermedia di supporto nella quale il codice sorgente
+ viene compilato (di fatto ciò che sviluppiamo con ANTLR è un interprete
+ e non un compilatore vero e proprio, visto che non viene prodotto alcun
+ compilato), si è cercato un modo per poter richiamare dei blocchi quando
+ richiesti.
+ Seguendo il suggerimento di Terrence Parr
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Ideatore di ANTLR.
+\end_layout
+
+\end_inset
+
+ nel suo libro 
+\shape italic
+Language Implementation Patterns
+\shape default
+ abbiamo seguito la seguente procedura:
+\end_layout
+
+\begin_layout Enumerate
+Avere un attributo ereditato che dice al parser se deve eseguire l'istruzione
+ letta o no.
+\end_layout
+
+\begin_layout Enumerate
+Salvare la posizione del primo Token della regola che contiene il blocco.
+\end_layout
+
+\begin_layout Enumerate
+Quando il blocco deve essere richiamato si salva la posizione corrente del
+ cursore dei Token
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Il cursore dei Token è l'analogo del 
+\shape italic
+Program Counter
+\shape default
+ nelle CPU.
+\end_layout
+
+\end_inset
+
+ e successivamente lo si fa puntare all'indice che avevamo salvato, poi
+ si invoca la regola del parser relativa al blocco da eseguire.
+\end_layout
+
+\begin_layout Enumerate
+Una volta terminato il blocco, che può anche terminare con la sintetizzazione
+ di un attributo, si ripristina il cursore dei Token alla posizione che
+ aveva prima di invocare il blocco.
+\end_layout
+
+\begin_layout Standard
+Quando le funzioni vengono invocate, la lista dei parametri formali e quella
+ dei parametri attuali viene confrontata, e se hanno la stessa dimensione,
+ allora si creano le variabili relative ai parametri nel record di attivazione
+ della funzione.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Tutte le funzioni in Rpn-Lang devono finire con lo statement 
+\series bold
+return
+\series default
+, e questo statement può essere usato solo in questa occasione.
+ Quindi le funzioni hanno un solo punto di uscita, questo semplifica di
+ molto la lettura delle funzioni.
+ In questo modo poi non è quindi possibile programmare delle procedure,
+ ma solo delle funzioni (in uno stile che ricorda le funzioni programmabili
+ sulle calcolatrici HP, a cui il nostro linguaggio si ispira).
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In Rpn-Lang è possibile definire delle 
+\series bold
+Higher-order Functions
+\series default
+, ossia si possono definire funzioni all'interno di altri blocchi (come
+ altre funzioni, oppure come blocchi 
+\shape italic
+if-else
+\shape default
+ o 
+\shape italic
+while
+\shape default
+) visibili solamente all'interno di questo blocco, il cui ciclo di vita
+ è intrinsecamente legato a quello del blocco che le contiene.
+ Queste funzioni sono visibili solamente all'interno del blocco in cui sono
+ state definite.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Il metodo utilizzato da Rpn-Lang per cercare le funzioni è analogo a quello
+ descritto per le variabili, ossia le funzioni vengono ricercate in tutto
+ lo stack.
+\end_layout
+
+\begin_layout Subsection
+Istruzioni if
+\end_layout
+
+\begin_layout Standard
+Rpn-Lang permette la definizione di istruzioni condizionali attraverso il
+ costrutto
+\shape italic
+ 
+\begin_inset Formula 
+\[
+if\, condizione\,\{\, statements\_vero\,\}\,[\, else\,\{\, statements\_falso\,\}\,]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Una condizione è rappresentata dalla sintass
+\shape italic
+i 
+\begin_inset Formula 
+\[
+(operatore\, operando\, operando)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Quindi la sintassi è analoga a quella delle espressioni, utilizzando però
+ gli operatori di confronto.
+ La particolarità rispetto agli altri linguaggi di programmazione è che
+ anche le condizioni sono espresse in logica prefissa.
+ Il funzionamento interno è analogo a quanto esposto per le funzioni.
+\end_layout
+
+\begin_layout Subsection
+Cicli While
+\end_layout
+
+\begin_layout Standard
+Rpn-Lang permette l'utilizzo di cicli while mediante la classica sintass
+\shape italic
+i 
+\begin_inset Formula 
+\[
+while\,(\, condizione\,)\,\{\, lista\_istruzioni\,\}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Come nel classico while-loop ad ogni iterazione viene controllata la condizione
+ 
+\shape italic
+cond
+\shape default
+, se essa è verificata vengono eseguite le istruzioni nella lista istruzioni.
+ Anche qui il funzionamento interno è quello esposto per le funzioni, ossia
+ il cursore dei Token viene spostato indietro e avanti per verificare la
+ condizione ed eseguire (se la condizione viene verificata) il blocco delle
+ istruzioni.
+\end_layout
+
+\begin_layout Subsection
+Input e Output
+\end_layout
+
+\begin_layout Standard
+Rpn-Lang permette anche l'interazione con l'utente, infatti è possibile
+ richiedere l'inserimento del valore di una variabile all'utente attraverso
+ la sintassi
+\shape italic
+
+\begin_inset Formula 
+\[
+\gg VAR;
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La richiesta di inserimento della variabile viene mostrata a schermo e viene
+ ripetuta finché l'utente non inserisce un numero decimale valido.
+ Per mostrare invece a video il valore di una variabile o di una espressione
+ si utilizza la sintassi
+\end_layout
+
+\begin_layout Standard
+
+\shape italic
+\begin_inset Formula 
+\[
+\ll VAR\_O\_EXPR;
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In questo modo è possibile descrivere algoritmi generici che prendono come
+ input un dato dell'utente, lo elaborano e ne mostrano il risultato della
+ computazione.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Conclusioni
+\end_layout
+
+\begin_layout Standard
+Ovviamente avendo la libertà di poter scrivere un proprio linguaggio general-pur
+pose il rischio è quello di poter descrivere talmente tanti costrutti che
+ si potrebbe continuare ad implementare miglioramenti al compilatore per
+ moltissimo tempo.
+ Infatti anche nel piccolo di questo progetto, siamo partiti dal voler realizzar
+e semplicemente un linguaggio che operasse su variabili ed espressioni scritte
+ in notazione polacca inversa e siamo giunti ad aggiungere le funzioni,
+ le higher-order functions, i costrutti if-else e while, l'input e l'output.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Avremmo voluto aggiungere molte altre cose ma a un certo punto abbiamo dovuto
+ decidere di concludere.
+ Tuttavia abbiamo avuto modo di sperimentare come avviene la costruzione
+ di un linguaggio abbastanza completo nei suoi costrutti, trovando il processo
+ anche divertente.
+ Crediamo che il progetto sia stato interessante, anche perché ci ha permesso
+ di toccare con mano le problematiche dei linguaggi che fino ad oggi avevamo
+ semplicemente utilizzato, ma senza mai essere stati dalla parte degli ideatori
+ del linguaggio.
+\end_layout
+
+\end_body
+\end_document
