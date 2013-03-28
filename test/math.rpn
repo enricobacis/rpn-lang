@@ -1,0 +1,13 @@
+>> x;
+
+factorial = ! x;
+<< factorial;
+
+double = * x 2;
+<< double;
+
+half = / x 2;
+<< half;
+
+f = * / ~ x + 3 5 ~ 16;
+<< f;

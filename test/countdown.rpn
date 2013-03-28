@@ -1,0 +1,31 @@
+def countdown(num) {
+
+	def sub1(num) {
+		return + num ~ 1;
+	}
+	
+	def add1(num) {
+		return + num 1;
+	}
+	
+	if ( > num 0 ) {
+		
+		while ( >= num 0 ) {
+			<< num;
+			num = sub1(num);
+		}
+	
+	} else {
+	
+		while ( <= num 0 ) {
+			<< num;
+			num = add1(num);
+		}
+		
+	}
+	
+	return 0;
+}
+
+>> start;
+end = countdown(start);
